@@ -1,0 +1,44 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/',
+    name: 'Index',
+    component: () => import('@/views/Index.vue')
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: () => import('@/views/Test.vue')
+  },
+  {
+    path: '/glowCube',
+    name: 'GlowCube',
+    component: () => import('@/views/GlowCube.vue')
+  }, {
+    path: '/breathingLamp',
+    name: 'BreathingLamp',
+    component: () => import('@/views/BreathingLamp.vue')
+  },
+  {
+    path: '/pointCloudCube',
+    name: 'PointCloudCube',
+    component: () => import('@/views/PointCloudCube.vue')
+  },
+  {
+    path: '/coordinates',
+    name: 'Coordinates',
+    component: () => import('@/views/Coordinates.vue')
+  }
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+})
+
+export default router
