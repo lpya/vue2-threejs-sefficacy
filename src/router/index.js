@@ -22,6 +22,10 @@ const routes = [
     path: '/breathingLamp',
     name: 'BreathingLamp',
     component: () => import('@/views/BreathingLamp.vue')
+  }, {
+    path: '/CSS2DRenderer',
+    name: 'CSS2DRenderer',
+    component: () => import('@/views/CSS2DRenderer.vue')
   },
   {
     path: '/pointCloudCube',

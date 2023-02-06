@@ -20,20 +20,24 @@ export default {
           path: '/test'
         },
         {
-          title: '立方体辉光效果',
+          title: '正方体点云数据动态加载【Points】',
+          path: '/pointCloudCube'
+        },
+        {
+          title: '立方体辉光效果【UnrealBloomPass】',
           path: '/glowCube'
         },
         {
-          title: '立方体呼吸灯效果',
+          title: '立方体呼吸灯效果【OutlinePass】',
           path: '/breathingLamp'
+        },
+        {
+          title: '立方体选中提示【CSS2DRenderer】',
+          path: '/CSS2DRenderer'
         },
         {
           title: '坐标轴示意图',
           path: '/coordinates'
-        },
-        {
-          title: '正方体点云数据动态加载',
-          path: '/pointCloudCube'
         }
       ]
     };
