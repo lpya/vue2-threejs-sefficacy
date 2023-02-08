@@ -10,9 +10,9 @@ const routes = [
     component: () => import('@/views/Index.vue')
   },
   {
-    path: '/test',
-    name: 'Test',
-    component: () => import('@/views/Test.vue')
+    path: '/pointCloudCube',
+    name: 'PointCloudCube',
+    component: () => import('@/views/PointCloudCube.vue')
   },
   {
     path: '/glowCube',
@@ -26,16 +26,23 @@ const routes = [
     path: '/CSS2DRenderer',
     name: 'CSS2DRenderer',
     component: () => import('@/views/CSS2DRenderer.vue')
-  },
-  {
-    path: '/pointCloudCube',
-    name: 'PointCloudCube',
-    component: () => import('@/views/PointCloudCube.vue')
+  }, {
+    path: '/TextureLoader',
+    name: 'TextureLoader',
+    component: () => import('@/views/TextureLoader.vue')
+  }, {
+    path: '/PlaneGeometry',
+    name: 'PlaneGeometry',
+    component: () => import('@/views/PlaneGeometry.vue')
   },
   {
     path: '/coordinates',
     name: 'Coordinates',
     component: () => import('@/views/Coordinates.vue')
+  }, {
+    path: '/test',
+    name: 'Test',
+    component: () => import('@/views/Test.vue')
   }
 ]
 

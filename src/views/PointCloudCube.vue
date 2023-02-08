@@ -34,7 +34,8 @@ export default {
       this.initAxesHelper();
       this.initCube();
       this.initStats(el);
-      this.render();
+      this.animation();
+      window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
     initScene() {
@@ -115,15 +116,21 @@ export default {
     initStats(el) {
       this.stats = new Stats();
       el.appendChild(this.stats.dom);
-      this.requestAnimationFrame();
-    },
-    requestAnimationFrame() {
-      this.stats.update();
-      requestAnimationFrame(this.requestAnimationFrame);
     },
     // 渲染
     render() {
       this.renderer.render(this.scene, this.camera);
+    },
+    // 自适应
+    onWindowResize() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+    // 动画帧
+    animation() {
+      this.stats.update();
+      requestAnimationFrame(this.animation);
     }
   }
 };

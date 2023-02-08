@@ -30,7 +30,8 @@ export default {
       this.initOrbitControls();
       this.initAxesHelper();
       this.initStats(el);
-      this.render();
+      this.animation()
+      window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
     initScene() {
@@ -66,16 +67,22 @@ export default {
       const axes = new THREE.AxesHelper(2000);
       this.scene.add(axes);
     },
-
     // 性能
     initStats(el) {
       this.stats = new Stats();
       el.appendChild(this.stats.dom);
-      this.requestAnimationFrame();
     },
-    requestAnimationFrame() {
+    // 自适应
+    onWindowResize() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+    // 动画帧
+    animation () {
+      this.render()
       this.stats.update();
-      requestAnimationFrame(this.requestAnimationFrame);
+      requestAnimationFrame(this.animation);
     },
     // 渲染
     render() {

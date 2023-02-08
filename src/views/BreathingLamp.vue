@@ -34,7 +34,8 @@ export default {
       this.initOutlinePass();
       this.initOrbitControls();
       this.render();
-      this.requestAnimationFrame();
+      this.animation();
+      window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
     initScene() {
@@ -98,9 +99,16 @@ export default {
       controls.maxDistance = 10;
       controls.addEventListener('change', this.render);
     },
-    requestAnimationFrame() {
+    // 动画帧
+    animation() {
       this.composer.render();
-      requestAnimationFrame(this.requestAnimationFrame);
+      requestAnimationFrame(this.animation);
+    },
+    // 自适应
+    onWindowResize() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
     },
     // 渲染
     render() {

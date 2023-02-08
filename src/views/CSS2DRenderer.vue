@@ -35,6 +35,10 @@ export default {
   mounted() {
     this.init();
   },
+  beforeDestroy() {
+    this.label.element.style.visibility = 'hidden';
+    removeEventListener('click', this.clickFn)
+  },
   methods: {
     // 初始化
     init() {
@@ -48,6 +52,7 @@ export default {
       this.initLabel();
       this.animation();
       addEventListener('click', this.clickFn);
+      window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
     initScene() {
@@ -138,6 +143,7 @@ export default {
       this.css2DRenderer.domElement.style.pointerEvents = 'none';
       document.body.appendChild(this.css2DRenderer.domElement);
     },
+    // 获取dom
     getCSS2DObject(domEle) {
       let label = new CSS2DObject(domEle);
       domEle.style.pointerEvents = 'none';
@@ -152,6 +158,12 @@ export default {
       if (this.css2DRenderer) {
         this.css2DRenderer.render(this.scene, this.camera);
       }
+    },
+    // 自适应
+    onWindowResize() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
     },
     // 动画帧
     animation() {

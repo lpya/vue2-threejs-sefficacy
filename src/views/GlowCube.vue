@@ -33,8 +33,8 @@ export default {
       this.initCube();
       this.initBloomPass()
       this.initOrbitControls();
-      this.render();
-      this.requestAnimationFrame()
+      this.animation()
+      window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
     initScene() {
@@ -89,13 +89,20 @@ export default {
       controls.maxDistance = 10;
       controls.addEventListener('change', this.render);
     },
-    requestAnimationFrame() {
-      this.composer.render();
-      requestAnimationFrame(this.requestAnimationFrame);
-    },
     // 渲染
     render() {
       this.renderer.render(this.scene, this.camera);
+    },
+    // 自适应
+    onWindowResize() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+    // 动画帧
+    animation() {
+      this.composer.render();
+      requestAnimationFrame(this.animation);
     }
   }
 };
