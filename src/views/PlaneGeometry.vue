@@ -69,8 +69,6 @@ export default {
     },
     // 地板
     initPlane() {
-    //   const texture = new THREE.TextureLoader().load('1.jpg');
-    //   console.log(texture);
       const geometry = new THREE.PlaneGeometry(4, 8, 50, 50);
       geometry.rotateX(Math.PI / 2)
       const material = new THREE.MeshBasicMaterial({ color: '#cccccc', side: THREE.DoubleSide });

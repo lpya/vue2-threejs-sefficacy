@@ -1,17 +1,19 @@
 <template>
-  <div class="tempalte">
+  <div class="index">
     <div id="container"></div>
   </div>
 </template>
 <script>
 import * as THREE from 'three';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 export default {
   data() {
     return {
-      scene: null, // 场景
-      camera: null, // 相机
-      renderer: null // 渲染器
+      scene: null,
+      camera: null,
+      renderer: null,
+      stats: null
     };
   },
   mounted() {
@@ -25,55 +27,65 @@ export default {
       this.initCamera();
       this.initRenderer(el);
       this.initOrbitControls();
-      this.animation();
-      this.initPlane()
+      this.initAxesHelper();
+      this.initStats(el);
+      this.render()
+      window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
     initScene() {
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color('#000000');
+      this.scene.background = new THREE.Color(0x000000);
     },
     // 相机
     initCamera() {
       this.camera = new THREE.PerspectiveCamera(
-        75,
+        45,
         window.innerWidth / window.innerHeight,
-        0.1,
-        1000
+        1,
+        5000
       );
-      this.camera.position.set(0, 0, 10);
+      this.camera.position.set(1000, 1500, 2000);
     },
     // 渲染器
     initRenderer(el) {
       this.renderer = new THREE.WebGLRenderer({
         antialias: true
       });
-      this.renderer.setPixelRatio(window.devicePixelRatio);
+      this.renderer.setClearColor(0xeeeeee, 1.0);
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       el.appendChild(this.renderer.domElement);
     },
     // 缩放
     initOrbitControls() {
       let controls = new OrbitControls(this.camera, this.renderer.domElement);
-      controls.maxDistance = 15;
       controls.addEventListener('change', this.render);
+    },
+    // 坐标轴
+    initAxesHelper() {
+      const axes = new THREE.AxesHelper(2000);
+      this.scene.add(axes);
+    },
+    // 性能
+    initStats(el) {
+      this.stats = new Stats();
+      el.appendChild(this.stats.dom);
+    },
+    // 自适应
+    onWindowResize() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
     },
     // 渲染
     render() {
       this.renderer.render(this.scene, this.camera);
-    },
-    // 动画帧
-    animation() {
-      this.render();
-      requestAnimationFrame(this.animation);
-    },
-    // 地板
-    initPlane() {
-      const geometry = new THREE.PlaneGeometry(10, 10);
-      const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-      const plane = new THREE.Mesh(geometry, material);
-      this.scene.add(plane);
+      if (this.stats) {
+        this.stats.update();
+      }
+      requestAnimationFrame(this.render);
     }
+
   }
 };
 </script>

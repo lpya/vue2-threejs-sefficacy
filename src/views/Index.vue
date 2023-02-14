@@ -30,17 +30,22 @@ export default {
         {
           title: '正方体选中提示【CSS2DRenderer】',
           path: '/CSS2DRenderer'
-        }, {
+        },
+        {
+          title: '聚光灯光照【SpotLight】',
+          path: '/SpotLight'
+        },
+        {
+          title: '补间动画【Tween、SpotLight】',
+          path: '/TweenSpotLight'
+        },
+        {
           title: '物料贴图【TextureLoader】',
           path: '/TextureLoader'
         },
         {
           title: '地板【PlaneGeometry】',
           path: '/PlaneGeometry'
-        },
-        {
-          title: '坐标轴示意图【AxesHelper】',
-          path: '/coordinates'
         },
         {
           title: '测试',

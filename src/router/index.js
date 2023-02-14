@@ -31,6 +31,14 @@ const routes = [
     name: 'TextureLoader',
     component: () => import('@/views/TextureLoader.vue')
   }, {
+    path: '/SpotLight',
+    name: 'SpotLight',
+    component: () => import('@/views/SpotLight.vue')
+  }, {
+    path: '/TweenSpotLight',
+    name: 'TweenSpotLight',
+    component: () => import('@/views/TweenSpotLight.vue')
+  }, {
     path: '/PlaneGeometry',
     name: 'PlaneGeometry',
     component: () => import('@/views/PlaneGeometry.vue')
@@ -39,6 +47,10 @@ const routes = [
     path: '/coordinates',
     name: 'Coordinates',
     component: () => import('@/views/Coordinates.vue')
+  }, {
+    path: '/LoaderGLTF',
+    name: 'LoaderGLTF',
+    component: () => import('@/views/LoaderGLTF.vue')
   }, {
     path: '/test',
     name: 'Test',
