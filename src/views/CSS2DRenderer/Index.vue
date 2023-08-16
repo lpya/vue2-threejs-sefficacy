@@ -11,6 +11,7 @@
 </template>
 <script>
 import * as THREE from 'three';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass';
@@ -29,7 +30,8 @@ export default {
       css2DRenderer: null, // 2D渲染器
       composer: null, // 效果合成器
       label: null, // label标签
-      selectBoxName: null
+      selectBoxName: null,
+      stats: null
     };
   },
   mounted() {
@@ -46,6 +48,7 @@ export default {
       this.initScene();
       this.initCamera();
       this.initRenderer(el);
+      this.initStats(el);
       this.initCube();
       this.initOrbitControls();
       this.initCSS2DRenderer();
@@ -58,6 +61,11 @@ export default {
     initScene() {
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color('#000000');
+    },
+    // 性能
+    initStats(el) {
+      this.stats = new Stats();
+      el.appendChild(this.stats.dom);
     },
     // 相机
     initCamera() {
@@ -157,6 +165,9 @@ export default {
       }
       if (this.css2DRenderer) {
         this.css2DRenderer.render(this.scene, this.camera);
+      }
+      if (this.stats) {
+        this.stats.update();
       }
     },
     // 自适应

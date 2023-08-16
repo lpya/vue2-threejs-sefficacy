@@ -27,9 +27,9 @@ export default {
       this.initCamera();
       this.initRenderer(el);
       this.initOrbitControls();
-      this.initAxesHelper();
+      // this.initAxesHelper();
       this.initStats(el);
-      this.render()
+      this.animate()
       window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
@@ -83,9 +83,11 @@ export default {
       if (this.stats) {
         this.stats.update();
       }
-      requestAnimationFrame(this.render);
+    },
+    animate() {
+      this.render()
+      requestAnimationFrame(this.animate.bind(this));
     }
-
   }
 };
 </script>

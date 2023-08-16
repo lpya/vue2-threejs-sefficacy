@@ -5,6 +5,7 @@
 </template>
 <script>
 import * as THREE from 'three';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import TWEEN from '@tweenjs/tween.js'
 export default {
@@ -15,7 +16,8 @@ export default {
       renderer: null, // 渲染器
       composer: null, // 效果合成器
       light: null,
-      lightHelper: null
+      lightHelper: null,
+      stats: null
     };
   },
   mounted() {
@@ -28,12 +30,13 @@ export default {
       this.initScene();
       this.initCamera();
       this.initRenderer(el);
+      this.initStats(el);
       this.initCube();
       this.initPlane()
       this.initOrbitControls();
       this.initSpotLight()
-      this.animate()
       this.render();
+      this.animate()
       window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
@@ -68,12 +71,20 @@ export default {
       controls.maxPolarAngle = Math.PI / 2;
       controls.update();
     },
+    // 性能
+    initStats(el) {
+      this.stats = new Stats();
+      el.appendChild(this.stats.dom);
+    },
     // 渲染
     render() {
       TWEEN.update();
       this.renderer.render(this.scene, this.camera);
       if (this.lightHelper) {
         this.lightHelper.update()
+      }
+      if (this.stats) {
+        this.stats.update();
       }
       requestAnimationFrame(this.render);
     },

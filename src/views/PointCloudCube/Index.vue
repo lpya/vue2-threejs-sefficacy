@@ -71,6 +71,30 @@ export default {
       const axes = new THREE.AxesHelper(2000);
       this.scene.add(axes);
     },
+    // 性能
+    initStats(el) {
+      this.stats = new Stats();
+      el.appendChild(this.stats.dom);
+    },
+    // 渲染
+    render() {
+      if (this.renderer) {
+        this.renderer.render(this.scene, this.camera);
+      }
+    },
+    // 自适应
+    onWindowResize() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+    // 动画帧
+    animation() {
+      if (this.stats) {
+        this.stats.update();
+      }
+      requestAnimationFrame(this.animation);
+    },
     // 正方体
     initCube() {
       const material = new THREE.PointsMaterial({
@@ -85,6 +109,7 @@ export default {
         this.initCubeData();
       }, 1);
     },
+    // 点云数据
     initCubeData() {
       if (this.num > 1000000) {
         clearInterval(this.timer);
@@ -110,27 +135,7 @@ export default {
         new THREE.Float32BufferAttribute(this.colors, 3)
       );
       this.pointsCloud.geometry = this.bufferGeometry;
-      this.render();
-    },
-    // 性能
-    initStats(el) {
-      this.stats = new Stats();
-      el.appendChild(this.stats.dom);
-    },
-    // 渲染
-    render() {
-      this.renderer.render(this.scene, this.camera);
-    },
-    // 自适应
-    onWindowResize() {
-      this.camera.aspect = window.innerWidth / window.innerHeight;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-    },
-    // 动画帧
-    animation() {
-      this.stats.update();
-      requestAnimationFrame(this.animation);
+      this.render()
     }
   }
 };

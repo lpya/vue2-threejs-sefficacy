@@ -75,7 +75,7 @@ export default {
     // 立方体
     initCube() {
       // 加载图片
-      const texture = new THREE.TextureLoader().load('1.jpg');
+      const texture = new THREE.TextureLoader().load('/image/1.jpg');
       // 设置立方体长宽高
       const geometry = new THREE.BoxGeometry(2, 2, 2);
       const material = new THREE.MeshMatcapMaterial({
