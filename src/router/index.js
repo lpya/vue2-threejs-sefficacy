@@ -3,48 +3,38 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Index',
-    component: () => import('@/views/Index.vue')
-  },
-  {
-    path: '/pointCloudCube',
-    name: 'PointCloudCube',
-    component: () => import('@/views/PointCloudCube.vue')
-  },
-  {
-    path: '/glowCube',
-    name: 'GlowCube',
-    component: () => import('@/views/GlowCube.vue')
-  }, {
-    path: '/breathingLamp',
-    name: 'BreathingLamp',
-    component: () => import('@/views/BreathingLamp.vue')
-  }, {
-    path: '/CSS2DRenderer',
-    name: 'CSS2DRenderer',
-    component: () => import('@/views/CSS2DRenderer.vue')
-  }, {
-    path: '/TextureLoader',
-    name: 'TextureLoader',
-    component: () => import('@/views/TextureLoader.vue')
-  }, {
-    path: '/PlaneGeometry',
-    name: 'PlaneGeometry',
-    component: () => import('@/views/PlaneGeometry.vue')
-  },
-  {
-    path: '/coordinates',
-    name: 'Coordinates',
-    component: () => import('@/views/Coordinates.vue')
-  }, {
-    path: '/test',
-    name: 'Test',
-    component: () => import('@/views/Test.vue')
-  }
-]
+const routes = []
+
+const files = require.context('../views', true, /\.vue$/);
+
+function initRouter() {
+  // TODO 只处理一级路由
+  files.keys().forEach(viewPath => {
+    const path = files(viewPath).default.__file;
+    const pathSplits = path.split('/')
+    if (pathSplits.length < 3) {
+      return
+    }
+    if (pathSplits[2] === 'Index') {
+      routes.push(
+        {
+          path: '/',
+          name: pathSplits[2],
+          component: resolve => (require([`@/views/${pathSplits[2]}/Index.vue`], resolve))
+        }
+      )
+    } else {
+      routes.push(
+        {
+          path: `/${pathSplits[2]}`,
+          name: pathSplits[2],
+          component: resolve => (require([`@/views/${pathSplits[2]}/Index.vue`], resolve))
+        }
+      )
+    }
+  });
+}
+initRouter()
 
 const router = new VueRouter({
   mode: 'hash',

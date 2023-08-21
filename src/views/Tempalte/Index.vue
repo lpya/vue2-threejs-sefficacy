@@ -1,5 +1,5 @@
 <template>
-  <div class="tempalte">
+  <div class="index">
     <div id="container"></div>
   </div>
 </template>
@@ -13,8 +13,7 @@ export default {
       scene: null,
       camera: null,
       renderer: null,
-      stats: null,
-      timer: null
+      stats: null
     };
   },
   mounted() {
@@ -30,7 +29,7 @@ export default {
       this.initOrbitControls();
       this.initAxesHelper();
       this.initStats(el);
-      this.animation()
+      this.render()
       window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
@@ -72,19 +71,21 @@ export default {
       this.stats = new Stats();
       el.appendChild(this.stats.dom);
     },
-    animation () {
-      this.stats.update();
-      requestAnimationFrame(this.animation);
-    },
-    // 渲染
-    render() {
-      this.renderer.render(this.scene, this.camera);
-    },
+    // 自适应
     onWindowResize() {
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
+    },
+    // 渲染
+    render() {
+      this.renderer.render(this.scene, this.camera);
+      if (this.stats) {
+        this.stats.update();
+      }
+      requestAnimationFrame(this.render);
     }
+
   }
 };
 </script>

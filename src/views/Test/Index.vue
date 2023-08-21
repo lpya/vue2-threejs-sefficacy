@@ -1,5 +1,7 @@
 <template>
-  <div id="container"></div>
+  <div class="index">
+    <div id="container"></div>
+  </div>
 </template>
 <script>
 import * as THREE from 'three';
@@ -11,13 +13,7 @@ export default {
       scene: null,
       camera: null,
       renderer: null,
-      stats: null,
-      pointsCloud: null,
-      bufferGeometry: null,
-      positions: [],
-      colors: [],
-      num: 0,
-      timer: null
+      stats: null
     };
   },
   mounted() {
@@ -31,10 +27,9 @@ export default {
       this.initCamera();
       this.initRenderer(el);
       this.initOrbitControls();
-      this.initAxesHelper();
-      this.initCube();
+      // this.initAxesHelper();
       this.initStats(el);
-      this.animation();
+      this.animate()
       window.addEventListener('resize', this.onWindowResize);
     },
     // 场景
@@ -50,7 +45,7 @@ export default {
         1,
         5000
       );
-      this.camera.position.set(1000, 0, -2000);
+      this.camera.position.set(1000, 1500, 2000);
     },
     // 渲染器
     initRenderer(el) {
@@ -71,55 +66,10 @@ export default {
       const axes = new THREE.AxesHelper(2000);
       this.scene.add(axes);
     },
-    // 正方体
-    initCube() {
-      const material = new THREE.PointsMaterial({
-        size: 1,
-        vertexColors: true
-      });
-      this.bufferGeometry = new THREE.BufferGeometry();
-      this.pointsCloud = new THREE.Points();
-      this.pointsCloud.material = material;
-      this.scene.add(this.pointsCloud);
-      this.timer = setInterval(() => {
-        this.initCubeData();
-      }, 1);
-    },
-    initCubeData() {
-      if (this.num > 1000000) {
-        clearInterval(this.timer);
-        return;
-      }
-      this.num = this.num + 1;
-      const n = 1000;
-      const n2 = n / 2;
-      let x = Math.random() * n - n2;
-      let y = Math.random() * n - n2;
-      let z = Math.random() * n - n2;
-      let vx = x / n + 0.5;
-      let vy = y / n + 0.5;
-      let vz = z / n + 0.5;
-      this.colors.push(vx, vy, vz);
-      this.positions.push(x, y, z);
-      this.bufferGeometry.setAttribute(
-        'position',
-        new THREE.Float32BufferAttribute(this.positions, 3)
-      );
-      this.bufferGeometry.setAttribute(
-        'color',
-        new THREE.Float32BufferAttribute(this.colors, 3)
-      );
-      this.pointsCloud.geometry = this.bufferGeometry;
-      this.render();
-    },
     // 性能
     initStats(el) {
       this.stats = new Stats();
       el.appendChild(this.stats.dom);
-    },
-    // 渲染
-    render() {
-      this.renderer.render(this.scene, this.camera);
     },
     // 自适应
     onWindowResize() {
@@ -127,17 +77,17 @@ export default {
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
     },
-    // 动画帧
-    animation() {
-      this.stats.update();
-      requestAnimationFrame(this.animation);
+    // 渲染
+    render() {
+      this.renderer.render(this.scene, this.camera);
+      if (this.stats) {
+        this.stats.update();
+      }
+    },
+    animate() {
+      this.render()
+      requestAnimationFrame(this.animate.bind(this));
     }
   }
 };
 </script>
-<style>
-* {
-  padding: 0px;
-  margin: 0px;
-}
-</style>

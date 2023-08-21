@@ -17,20 +17,29 @@ export default {
       linkList: [
         {
           title: '正方体点云数据动态加载【Points】',
-          path: '/pointCloudCube'
+          path: '/PointCloudCube'
         },
         {
           title: '正方体辉光效果【UnrealBloomPass】',
-          path: '/glowCube'
+          path: '/GlowCube'
         },
         {
           title: '正方体呼吸灯效果【OutlinePass】',
-          path: '/breathingLamp'
+          path: '/BreathingLamp'
         },
         {
           title: '正方体选中提示【CSS2DRenderer】',
           path: '/CSS2DRenderer'
-        }, {
+        },
+        {
+          title: '聚光灯光照【SpotLight】',
+          path: '/SpotLight'
+        },
+        {
+          title: '补间动画【Tween、SpotLight】',
+          path: '/TweenSpotLight'
+        },
+        {
           title: '物料贴图【TextureLoader】',
           path: '/TextureLoader'
         },
@@ -39,12 +48,16 @@ export default {
           path: '/PlaneGeometry'
         },
         {
-          title: '坐标轴示意图【AxesHelper】',
-          path: '/coordinates'
+          title: '模型加载【LoaderGLTF】',
+          path: '/LoaderGLTF'
+        },
+        {
+          title: '道路流光效果',
+          path: '/RoadStreamingLight'
         },
         {
           title: '测试',
-          path: '/test'
+          path: '/Test'
         }
       ]
     };

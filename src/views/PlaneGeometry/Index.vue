@@ -1,5 +1,5 @@
 <template>
-  <div class="tempalte">
+  <div class="planeGeometry">
     <div id="container"></div>
   </div>
 </template>
@@ -25,8 +25,8 @@ export default {
       this.initCamera();
       this.initRenderer(el);
       this.initOrbitControls();
-      this.animation();
       this.initPlane()
+      this.animation();
     },
     // 场景
     initScene() {
@@ -41,7 +41,7 @@ export default {
         0.1,
         1000
       );
-      this.camera.position.set(0, 0, 10);
+      this.camera.position.set(5, 5, 0);
     },
     // 渲染器
     initRenderer(el) {
@@ -69,8 +69,9 @@ export default {
     },
     // 地板
     initPlane() {
-      const geometry = new THREE.PlaneGeometry(10, 10);
-      const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+      const geometry = new THREE.PlaneGeometry(4, 8, 50, 50);
+      geometry.rotateX(Math.PI / 2)
+      const material = new THREE.MeshBasicMaterial({ color: '#cccccc', side: THREE.DoubleSide });
       const plane = new THREE.Mesh(geometry, material);
       this.scene.add(plane);
     }
