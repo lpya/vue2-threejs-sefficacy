@@ -34,7 +34,7 @@ export default {
       window.location.href = 'https://www.lpya.cn'
     },
     jumpGithub() {
-      window.location.href = 'https://github.com/lpya/vue3-ts-vite-konvajs'
+      window.location.href = 'https://github.com/lpya/vue2-threejs-sefficacy'
     }
   }
 };
