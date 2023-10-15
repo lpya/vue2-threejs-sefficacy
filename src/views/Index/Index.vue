@@ -12,7 +12,7 @@
         <el-col v-for="(item, key) in linkList" :key="key" :span="6">
           <router-link :to="item.path" class="card">
             <div class="cover" :style="{ background: `url(${item.coverUrl})`, backgroundSize: '100% 100%' }"></div>
-            <div class="title">{{ item.title }}</div>
+            <div class="title">{{ key + 1 }}-{{ item.title }}</div>
           </router-link>
         </el-col>
       </el-row>
