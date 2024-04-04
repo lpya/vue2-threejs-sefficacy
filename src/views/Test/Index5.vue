@@ -30,8 +30,7 @@ export default {
       // 创建正方体1
       const texture = new THREE.TextureLoader().load('/image/1.jpg');
       const geometry1 = new THREE.BoxGeometry(20, 20, 20);
-      const material1 = new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true, wireframeLinewidth: 10 });
-
+      const material1 = new THREE.MeshBasicMaterial({ map: texture });
       const cube1 = new THREE.Mesh(geometry1, material1);
       cube1.position.z = -20;
       scene.add(cube1);
