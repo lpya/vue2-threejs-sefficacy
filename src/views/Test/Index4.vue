@@ -27,14 +27,21 @@ export default {
       renderer.setSize(window.innerWidth, window.innerHeight);
       this.$refs.container.appendChild(renderer.domElement);
 
-      // 创建正方体1
-      const texture = new THREE.TextureLoader().load('/image/1.jpg');
-      const geometry1 = new THREE.BoxGeometry(20, 20, 20);
-      const material1 = new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true, wireframeLinewidth: 10 });
+      // 创建 WebGLRenderer 中的正方体
+      const geometry = new THREE.BoxGeometry(20, 20, 20);
+      const material = new THREE.MeshBasicMaterial({ color: 0xff00ff, opacity: 1 });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.z = -20;
+      scene.add(cube);
 
-      const cube1 = new THREE.Mesh(geometry1, material1);
-      cube1.position.z = -20;
-      scene.add(cube1);
+      // 设置相机位置
+      camera.position.z = 5;
+
+      // 创建 OrbitControls 控制器
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.minDistance = 100;
+      controls.maxDistance = 1000;
+      controls.update();
 
       // 创建 CSS3DRenderer 和 CSS3DObject
       const cssRenderer = new CSS3DRenderer();
@@ -42,29 +49,10 @@ export default {
       cssRenderer.domElement.style.position = 'absolute';
       cssRenderer.domElement.style.top = 0;
       document.getElementById('c3d-container').appendChild(cssRenderer.domElement);
-      // this.$refs.container.appendChild(cssRenderer.domElement);
 
       const element = document.getElementById('c3d');
       const cssObject = new CSS3DObject(element);
       scene.add(cssObject);
-
-      // 创建正方体2
-      const geometry2 = new THREE.BoxGeometry(20, 20, 20);
-      const material2 = new THREE.MeshBasicMaterial({ map: texture });
-      const cube2 = new THREE.Mesh(geometry2, material2);
-      cube2.position.z = 20;
-      scene.add(cube2);
-
-      // 设置相机位置
-      camera.position.z = 150;
-      camera.position.y = 150;
-      camera.position.x = 150;
-
-      // 创建 OrbitControls 控制器
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.minDistance = 100;
-      controls.maxDistance = 1000;
-      controls.update();
 
       // 渲染循环
       const animate = () => {
@@ -94,7 +82,6 @@ export default {
 }
 
 #c3d {
-  background: red;
   .c3d-text {
     color: #fff;
     font-size: 10px;
